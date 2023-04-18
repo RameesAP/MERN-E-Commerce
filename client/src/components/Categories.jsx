@@ -8,7 +8,7 @@ const Categories = () => {
     return (
         <Container>
             {CatgoriesTempData.map(item => (
-                <CategoriesItems item={item} />
+                <CategoriesItems item={item} key={item.id}/>
             ))}
         </Container>
     )
