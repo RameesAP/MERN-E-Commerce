@@ -4,15 +4,15 @@ import { popularProducts } from '../data'
 import Product from './Product'
 
 const Products = () => {
-  return (
-    <Container>
-        {popularProducts.map(item=>(
-            <Product item={item} key={item.id}/>
-        ))}
-    </Container>
-  )
+    return (
+        <Container>
+            {popularProducts.map(item => (
+                <Product item={item} key={item.id} />
+            ))}
+        </Container>
+    )
 }
-const Container=styled.div`
+const Container = styled.div`
     display: flex;
     padding: 20px;
     flex-wrap: wrap;
