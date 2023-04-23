@@ -29,6 +29,7 @@ const Container=styled.div`
   background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
   url("https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") 
   center;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
