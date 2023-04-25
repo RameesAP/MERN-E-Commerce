@@ -13,6 +13,10 @@ const Cart = () => {
             <Title>YOUR BAG</Title>
             <Top>
                 <TopButton>CONTINUE SHOPPING</TopButton>
+                <Toptexts>
+                    <TopText></TopText>
+                    <TopText></TopText>
+                </Toptexts>
                 <TopButton>CHECKOUT NOW</TopButton>
             </Top>
             <Bottom></Bottom>
