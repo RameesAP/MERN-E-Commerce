@@ -26,10 +26,10 @@ const Cart = () => {
                             <ProductDetails>
                                 <Image src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
                                 <Details>
-                                    <ProductName><b>Product:</b> Pine Forest</ProductName>
-                                    <ProductId><b>ID:</b> 888855</ProductId>
-                                    <ProductColor color="white" />
-                                    <ProductSize><b>Size:</b> 37.5</ProductSize>
+                                    <ProductName><b>Product:</b> Shoe</ProductName>
+                                    <ProductId><b>ID:</b> 99888855</ProductId>
+                                    <ProductColor color="blue" />
+                                    <ProductSize><b>Size:</b>44</ProductSize>
                                 </Details>
                             </ProductDetails>
                             <PriceDetails>
@@ -38,7 +38,7 @@ const Cart = () => {
                                     <ProductAmount>2</ProductAmount>
                                     <Remove />
                                 </ProductAmountContainer>
-                                <ProductPrice>₹ 2000</ProductPrice>
+                                <ProductPrice>₹ 2500</ProductPrice>
                             </PriceDetails>
                         </Product>
                         <Hr />
@@ -55,14 +55,33 @@ const Cart = () => {
                             <PriceDetails>
                                 <ProductAmountContainer>
                                     <Add />
-                                    <ProductAmount>2</ProductAmount>
+                                    <ProductAmount>1</ProductAmount>
                                     <Remove />
                                 </ProductAmountContainer>
                                 <ProductPrice>₹ 2000</ProductPrice>
                             </PriceDetails>
                         </Product>
                     </Info>
-                    <Summary>Summary</Summary>
+                    <Summary>
+                        <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                        <SummaryItem>
+                            <SummaryItemText>Subtotal</SummaryItemText>
+                            <SummaryItemPrice>₹ 20</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem>
+                            <SummaryItemText>Estimated Shipping</SummaryItemText>
+                            <SummaryItemPrice>₹ 50</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem>
+                            <SummaryItemText>Shipping Discount</SummaryItemText>
+                            <SummaryItemPrice>₹ -10</SummaryItemPrice>
+                        </SummaryItem>
+                        <SummaryItem type="total">
+                            <SummaryItemText>Total</SummaryItemText>
+                            <SummaryItemPrice>₹ 20</SummaryItemPrice>
+                        </SummaryItem>
+                        <Button>CHECKOUT NOW</Button>
+                    </Summary>
                 </Bottom>
             </Wrapper>
             <Footer />
@@ -117,9 +136,7 @@ const Hr = styled.hr`
     height: 1px;
 `
 
-const Summary = styled.div`
-    flex: 1;
-`
+
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
@@ -176,5 +193,35 @@ const ProductAmount = styled.div`
 const ProductPrice = styled.div`
     font-size: 30px;
     font-weight: 200;
+`
+const Summary = styled.div`
+    flex: 1;
+    border: 0.5px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+    height: 50vh;
+`
+const SummaryTitle=styled.h1`
+    font-weight: 200;
+`
+const SummaryItem=styled.div`
+    margin: 30px 0px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: ${props=>props.type === "total" && "500"};
+    font-size: ${props=>props.type === "total" && "24px"};
+`
+const SummaryItemText=styled.span`
+    
+`
+const SummaryItemPrice=styled.span`
+    
+`
+const Button=styled.button`
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-weight: 600;
 `
 export default Cart
