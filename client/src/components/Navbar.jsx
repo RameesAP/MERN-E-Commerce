@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
+import { mobile } from '../responsive'
 
 
 const Navbar = () => {
@@ -11,7 +12,7 @@ const Navbar = () => {
         <LeftStyle>
           <LanguageStyle>EN</LanguageStyle>
           <SearchContainerStyle>
-            <InputStyle />
+            <InputStyle placeholder='Search' />
             <SearchOutlined style={{ color: "gray", fontSize: "16px" }} />
           </SearchContainerStyle>
         </LeftStyle>
@@ -32,12 +33,14 @@ const Navbar = () => {
 
 const ContainerStyle = styled.div`
   height: 60px;
+  ${mobile({ height: "50px" })}
 `
 const WrapperStyle = styled.div`
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${mobile({ padding: "10px 0px" })}
 `
 const LeftStyle = styled.div`
   flex: 1;
@@ -53,10 +56,12 @@ const RightStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `
 const LanguageStyle = styled.div`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ display: "none" })}
 `
 const SearchContainerStyle = styled.div`
   border: 0.5px solid lightgray;
@@ -67,14 +72,17 @@ const SearchContainerStyle = styled.div`
 `
 const InputStyle = styled.input`
   border: none;
+  ${mobile({ width: "50px" })}
 `
 const Logo = styled.h1`
   font-weight: bold;
+  ${mobile({ fontSize: "10px" })}
 `
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `
 
 export default Navbar
