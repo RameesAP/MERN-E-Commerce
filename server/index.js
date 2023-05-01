@@ -16,7 +16,7 @@ import authRouter from './Routes/auth.js'
 
 
 //usage of routes
-app.use('/',authRouter)
+app.use('/auth',authRouter)
 
 
 //db connection

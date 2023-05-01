@@ -27,11 +27,7 @@ const ProductSchema = mongoose.Schema(
             type: Number,
             require: true
         },
-        date: {
-            type: Date,
-            default: Date.now
 
-        }
     },
     { timestamps: true }
 )
