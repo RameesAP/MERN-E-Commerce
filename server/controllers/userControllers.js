@@ -1,7 +1,7 @@
 import UserModel from "../model/UserModel.js"
 
 
-
+//update user
 export const updateUser = async (req, res) => {
     if(req.body.password){
         req.body.password=CryptoJS.AES.encrypt(
@@ -18,3 +18,6 @@ export const updateUser = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+//delete User
+
