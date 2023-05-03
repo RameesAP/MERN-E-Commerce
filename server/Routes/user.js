@@ -1,9 +1,11 @@
 import express from 'express'
-import { getall } from '../controllers/userControllers.js';
+import { verifyTokenAndAuthorization } from '../controllers/verifyTokenControllers.js';
+import { updateUser } from '../controllers/userControllers.js';
+
 
 const router=express.Router();
 
-router.get('/usertest',getall)
+router.put('/:id',verifyTokenAndAuthorization,updateUser)
 
 
 export default router

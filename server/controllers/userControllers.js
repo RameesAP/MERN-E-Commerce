@@ -2,10 +2,18 @@ import UserModel from "../model/UserModel.js"
 
 
 
-export const getall = async (req, res) => {
+export const updateUser = async (req, res) => {
+    if(req.body.password){
+        req.body.password=CryptoJS.AES.encrypt(
+            req.body.password,
+            process.env.PASS_SEC
+        ).toString();
+    }
     try {
-        const alldata = await UserModel.find()
-        res.status(200).json(alldata)
+        const updatedU=await UserModel.findByIdAndUpdate(req.params.id,{
+            $set:req.body
+        },{new:true})
+        res.status(200).json(updatedU)
     } catch (error) {
         res.status(500).json(error)
     }

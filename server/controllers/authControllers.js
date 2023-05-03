@@ -1,5 +1,6 @@
 import UserModel from "../model/UserModel.js";
 import CryptoJS from "crypto-js";
+import jwt from 'jsonwebtoken'
 
 export const register = async (req, res) => {
     const newUser = new UserModel({
@@ -29,9 +30,17 @@ export const login = async (req, res) => {
         OGpassword !== req.body.password &&
             res.status(401).json("wrong password")
 
+        const accessToken = jwt.sign({
+            id: user._id,
+            isAdmin: user.isAdmin,
+        },
+            process.env.JWT_SEC,
+            {expiresIn:"3d"}
+        )
+
         const { password, ...others } = user._doc
 
-        res.status(200).json(others)
+        res.status(200).json({...others,accessToken})
     } catch (error) {
         res.status(500).json(error)
     }

@@ -13,10 +13,12 @@ app.use(morgan('dev'))
 //import Routes
 // import userRoutes from './Routes/user.js'
 import authRouter from './Routes/auth.js'
+import userRouter from './Routes/user.js'
 
 
 //usage of routes
 app.use('/auth',authRouter)
+app.use('/user',userRouter)
 
 
 //db connection
