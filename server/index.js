@@ -16,6 +16,7 @@ import userRouter from './Routes/user.js'
 import productsRouter from './Routes/product.js'
 import cartRouter from './Routes/cart.js'
 import orderRouter from './Routes/order.js'
+import stripeRouter from './Routes/stripe.js'
 
 
 //usage of routes
@@ -24,6 +25,7 @@ app.use('/user', userRouter)
 app.use('/products', productsRouter)
 app.use('/cart', cartRouter)
 app.use('/order', orderRouter)
+app.use('/stripe',stripeRouter)
 
 //db connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })

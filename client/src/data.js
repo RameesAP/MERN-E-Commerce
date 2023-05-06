@@ -26,17 +26,20 @@ export const CatgoriesTempData = [
     {
         id:1,
         img:"https://images.pexels.com/photos/5693889/pexels-photo-5693889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        title:"KIDS WEAR"
+        title:"KIDS WEAR",
+        cat:"kids"
     },
     {
         id:2,
         img:"https://images.pexels.com/photos/757316/pexels-photo-757316.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        title:"MENS WEAR"
+        title:"MENS WEAR",
+        cat:"man"
     },
     {
         id:3,
         img:"https://images.pexels.com/photos/3119215/pexels-photo-3119215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        title:"WOMENS WEAR"
+        title:"WOMENS WEAR",
+        cat:"women"
     },
 ]
 
