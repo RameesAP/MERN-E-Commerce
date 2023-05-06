@@ -12,16 +12,16 @@ export const createOrder = async (req, res) => {
     }
 }
 
-export const updateCart = async (req, res) => {
+export const updateOrder = async (req, res) => {
     try {
-        const updatedCart = await CartModel.findByIdAndUpdate(
+        const updatedOrder = await OrderModel.findByIdAndUpdate(
             req.params.id,
             {
                 $set: req.body,
             },
             { new: true }
         )
-        res.status(200).json(updatedCart)
+        res.status(200).json(updatedOrder)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -29,28 +29,57 @@ export const updateCart = async (req, res) => {
 }
 
 
-export const deleteCart = async (req, res) => {
+export const deleteOrder = async (req, res) => {
     try {
-        await CartModel.findByIdAndDelete(req.params.id)
-        res.status(200).json("Cart Deleted...")
+        await OrderModel.findByIdAndDelete(req.params.id)
+        res.status(200).json("Order Deleted...")
     } catch (error) {
         res.status(500).json(error)
     }
 }
 
-export const getUserCart = async (req, res) => {
+export const getUserOrder = async (req, res) => {
     try {
-        const Cart = await CartModel.findOne({ userId: req.params.userId })
-        res.status(200).json(Cart)
+        const Orders = await OrderModel.find({ userId: req.params.userId })
+        res.status(200).json(Orders)
     } catch (error) {
         res.status(500).json(error)
     }
 }
 
-export const getAllCart = async (req, res) => {
+export const getAllOrder = async (req, res) => {
     try {
-        const cart = await CartModel.find()
-        res.status(200).json(cart)
+        const ALLOrder = await OrderModel.find()
+        res.status(200).json(ALLOrder)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+//get monthly income
+
+export const getMonthlyIncome = async (req, res) => {
+    const date = new Date()
+    const lastMonth = new Date(date.setMonth(date.getMonth() - 1))
+    const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1))
+    try {
+        const income = await OrderModel.aggregate([
+            { $match: { createdAt: { $gte: previousMonth } } },
+            {
+                $project: {
+                    month: { $month: "$createdAt" },
+                    sales: "$amount"
+                },
+            },
+            {
+                $group: {
+                    _id: "$month",
+                    total: { $sum: "$sales" },
+                }
+
+            },
+        ])
+        res.status(200).json(income)
     } catch (error) {
         res.status(500).json(error)
     }
