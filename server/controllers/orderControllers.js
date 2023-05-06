@@ -1,12 +1,12 @@
-import CartModel from "../model/CartModel.js"
+import OrderModel from "../model/OrderModel.js"
 
 
-export const createCart = async (req, res) => {
-    const newCart = new CartModel(req.body)
+export const createOrder = async (req, res) => {
+    const newOrder = new OrderModel(req.body)
 
     try {
-        const savedCart = await newCart.save()
-        res.status(200).json(savedCart)
+        const savedOrder = await newOrder.save()
+        res.status(200).json(savedOrder)
     } catch (error) {
         res.status(500).json(error)
     }
