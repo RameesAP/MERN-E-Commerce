@@ -54,7 +54,7 @@ export const getAllProducts = async (req, res) => {
         let products;
 
         if (qNew) {
-            products = await ProductModel.find().sort({ createdAt: -1 }).limit(5)
+            products = await ProductModel.find().sort({ createdAt: -1 }).limit(1)
         } else if (qCategory) {
             products = await ProductModel.find({
                 categories: {
