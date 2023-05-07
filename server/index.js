@@ -3,11 +3,15 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import cors from "cors"
 
 const app = express()
 app.use(bodyParser.json())
 dotenv.config()
 app.use(morgan('dev'))
+app.use(cors({
+    origin: 'http://localhost:3000'
+  }));
 
 
 //import Routes
