@@ -5,8 +5,12 @@ import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile } from '../responsive'
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
+
+    const cart = useSelector(state => state.cart)
+
     return (
         <Container>
             <Announcement />
@@ -23,51 +27,35 @@ const Cart = () => {
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetails>
-                                <Image src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-                                <Details>
-                                    <ProductName><b>Product:</b> Shoe</ProductName>
-                                    <ProductId><b>ID:</b> 99888855</ProductId>
-                                    <ProductColor color="blue" />
-                                    <ProductSize><b>Size:</b>44</ProductSize>
-                                </Details>
-                            </ProductDetails>
-                            <PriceDetails>
-                                <ProductAmountContainer>
-                                    <Add />
-                                    <ProductAmount>2</ProductAmount>
-                                    <Remove />
-                                </ProductAmountContainer>
-                                <ProductPrice>₹ 2500</ProductPrice>
-                            </PriceDetails>
-                        </Product>
+                        {cart?.products?.map(product => (
+                            <Product>
+                                <ProductDetails>
+                                    <Image src={product.img} />
+                                    <Details>
+                                        <ProductName><b>Product:</b> {product.title}</ProductName>
+                                        <ProductId><b>ID:</b> {product._id}</ProductId>
+                                        <ProductColor color={product.color} />
+                                        <ProductSize><b>Size:</b> {product.size}</ProductSize>
+                                    </Details>
+                                </ProductDetails>
+                                <PriceDetails>
+                                    <ProductAmountContainer>
+                                        <Add />
+                                        <ProductAmount>{product.quantity}</ProductAmount>
+                                        <Remove />
+                                    </ProductAmountContainer>
+                                    <ProductPrice>₹ {product.price * product.quantity}</ProductPrice>
+                                </PriceDetails>
+                            </Product>
+                        ))}
                         <Hr />
-                        <Product>
-                            <ProductDetails>
-                                <Image src="https://images.pexels.com/photos/3270223/pexels-photo-3270223.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-                                <Details>
-                                    <ProductName><b>Product:</b> Pine Forest</ProductName>
-                                    <ProductId><b>ID:</b> 888855</ProductId>
-                                    <ProductColor color="black" />
-                                    <ProductSize><b>Size:</b> 37.5</ProductSize>
-                                </Details>
-                            </ProductDetails>
-                            <PriceDetails>
-                                <ProductAmountContainer>
-                                    <Add />
-                                    <ProductAmount>1</ProductAmount>
-                                    <Remove />
-                                </ProductAmountContainer>
-                                <ProductPrice>₹ 2000</ProductPrice>
-                            </PriceDetails>
-                        </Product>
+
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>₹ 20</SummaryItemPrice>
+                            <SummaryItemPrice>₹ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -75,11 +63,11 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Shipping Discount</SummaryItemText>
-                            <SummaryItemPrice>₹ -10</SummaryItemPrice>
+                            <SummaryItemPrice>₹ 0</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>₹ 20</SummaryItemPrice>
+                            <SummaryItemPrice>₹ {cart.total +50}</SummaryItemPrice>
                         </SummaryItem>
                         <Button>CHECKOUT NOW</Button>
                     </Summary>
@@ -95,7 +83,7 @@ const Container = styled.div`
 `
 const Wrapper = styled.div`
     padding: 20px;
-    ${mobile({ padding:"10px"})}
+    ${mobile({ padding: "10px" })}
 `
 const Title = styled.h1`
     font-weight: 300;
@@ -117,7 +105,7 @@ const TopButton = styled.button`
 `
 const TopTexts = styled.div`
     display: flex;
-    ${mobile({ display:"none"})}
+    ${mobile({ display: "none" })}
 `
 const TopText = styled.div`
     text-decoration: underline;
@@ -129,7 +117,7 @@ const TopText = styled.div`
 const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
-    ${mobile({ flexDirection:"column"})}
+    ${mobile({ flexDirection: "column" })}
 `
 const Info = styled.div`
     flex: 3;
@@ -144,7 +132,7 @@ const Hr = styled.hr`
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
-    ${mobile({ flexDirection:"column"})}
+    ${mobile({ flexDirection: "column" })}
 `
 const ProductDetails = styled.div`
     flex: 2;
@@ -194,12 +182,12 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
     font-size: 24px;
     margin: 5px;
-    ${mobile({ margin:"5px 15px"})}
+    ${mobile({ margin: "5px 15px" })}
 `
 const ProductPrice = styled.div`
     font-size: 30px;
     font-weight: 200;
-    ${mobile({ marginBottom:"20px"})}
+    ${mobile({ marginBottom: "20px" })}
 `
 const Summary = styled.div`
     flex: 1;
@@ -208,23 +196,23 @@ const Summary = styled.div`
     padding: 20px;
     height: 50vh;
 `
-const SummaryTitle=styled.h1`
+const SummaryTitle = styled.h1`
     font-weight: 200;
 `
-const SummaryItem=styled.div`
+const SummaryItem = styled.div`
     margin: 30px 0px;
     display: flex;
     justify-content: space-between;
-    font-weight: ${props=>props.type === "total" && "500"};
-    font-size: ${props=>props.type === "total" && "24px"};
+    font-weight: ${props => props.type === "total" && "500"};
+    font-size: ${props => props.type === "total" && "24px"};
 `
-const SummaryItemText=styled.span`
+const SummaryItemText = styled.span`
     
 `
-const SummaryItemPrice=styled.span`
+const SummaryItemPrice = styled.span`
     
 `
-const Button=styled.button`
+const Button = styled.button`
     width: 100%;
     padding: 10px;
     background-color: black;

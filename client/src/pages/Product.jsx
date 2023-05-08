@@ -8,16 +8,18 @@ import { Add, Remove } from '@material-ui/icons'
 import { mobile } from '../responsive'
 import { useLocation } from "react-router-dom"
 import { publicRequest } from '../requestMethods'
+import { addProduct } from '../redux/cartRedux'
+import { useDispatch } from 'react-redux'
 
 const Product = () => {
 
     const location = useLocation();
     const id = location.pathname.split("/")[2]
-
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1)
     const [color, setColor] = useState("")
     const [size, setSize] = useState("")
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const getProduct = async () => {
@@ -38,8 +40,10 @@ const Product = () => {
         }
     }
 
-    const handleClick =()=>{
-        
+    const handleClick = () => {
+        dispatch(
+            addProduct({ ...product,quantity,color,size })
+        )
     }
 
     return (
@@ -59,13 +63,13 @@ const Product = () => {
                             <FilterTitle>Color</FilterTitle>
 
                             {product?.color?.map((c) => (
-                                <FilterColor color={c} key={c} onClick={()=>setColor(c)}/>
+                                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
                             ))}
 
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
-                            <FilterSize onChange={(e)=>setSize(e.target.value)}>
+                            <FilterSize onChange={(e) => setSize(e.target.value)}>
 
                                 {product?.size?.map((s) => (
                                     <FilterSizeOptions key={s}>{s}</FilterSizeOptions>
