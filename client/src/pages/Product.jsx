@@ -11,7 +11,9 @@ import { publicRequest } from '../requestMethods'
 import { addProduct } from '../redux/cartRedux'
 import { useDispatch } from 'react-redux'
 
+
 const Product = () => {
+
 
     const location = useLocation();
     const id = location.pathname.split("/")[2]
@@ -81,7 +83,7 @@ const Product = () => {
                     <AddContainer>
                         <AmountContainer>
                             <Remove onClick={() => handleQuantity("dec")} />
-                            <Ammount>{quantity}</Ammount>
+                            <Ammount>{quantity}</Ammount>li
                             <Add onClick={() => handleQuantity("inc")} />
                         </AmountContainer>
                         <Button onClick={handleClick}>ADD TO CART</Button>

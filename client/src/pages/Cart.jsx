@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile } from '../responsive'
 import { useSelector } from 'react-redux'
+import Stripecheckout from "react-stripe-checkout"
 
 const Cart = () => {
 
@@ -141,7 +142,7 @@ const ProductDetails = styled.div`
 const Image = styled.img`
     width: 200px;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
     
 `
 
