@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import Announcement from '../components/Announcement'
@@ -6,12 +6,22 @@ import Footer from '../components/Footer'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile } from '../responsive'
 import { useSelector } from 'react-redux'
-import Stripecheckout from "react-stripe-checkout"
+import StripeCheckout from 'react-stripe-checkout'
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 const Cart = () => {
 
-    const cart = useSelector(state => state.cart)
+    const KEY = "pk_test_51N4jnSSChSaohZvz94XzhKdXhvzkCIs6bKCafAF7VM2ebLJJzZ4Z4tkP6vzGK4pa1AcJil1mZ8v0druoE5ErB9qL00aigoqejq"
+    // console.log(KEY, "KEYKEYKEYKEY");
 
+    const cart = useSelector(state => state.cart)
+    const [stripetoken, setStripeToken] = useState(null)
+
+    const onToken = (token) => {
+        setStripeToken(token)
+    }
+    console.log(stripetoken, "stripetoken");
     return (
         <Container>
             <Announcement />
@@ -31,10 +41,10 @@ const Cart = () => {
                         {cart?.products?.map(product => (
                             <Product>
                                 <ProductDetails>
-                                    <Image src={product.img} />
+                                    <Image src={product.img} key={product} />
                                     <Details>
                                         <ProductName><b>Product:</b> {product.title}</ProductName>
-                                        <ProductId><b>ID:</b> {product._id}</ProductId>
+                                        <ProductId><b>ID:</b> {product._id} </ProductId>
                                         <ProductColor color={product.color} />
                                         <ProductSize><b>Size:</b> {product.size}</ProductSize>
                                     </Details>
@@ -68,9 +78,20 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>₹ {cart.total +50}</SummaryItemPrice>
+                            <SummaryItemPrice>₹ {cart.total + 50}</SummaryItemPrice>
                         </SummaryItem>
-                        <Button>CHECKOUT NOW</Button>
+                        <StripeCheckout
+                            name="Ramees Shop"
+                            image="https://images.pexels.com/photos/13446290/pexels-photo-13446290.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                            billingAddress
+                            shippingAddress
+                            description={`Your total is ₹ ${cart.total}`}
+                            amount={cart.total * 100}
+                            token={onToken}
+                            stripeKey={KEY}
+                        >
+                            <Button>CHECKOUT NOW</Button>
+                        </StripeCheckout>
                     </Summary>
                 </Bottom>
             </Wrapper>
